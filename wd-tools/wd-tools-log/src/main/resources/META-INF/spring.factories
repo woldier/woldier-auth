@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.woldier.auth.log.LogAutoConfiguration
+org.springframework.context.ApplicationContextInitializer=\
+    com.woldier.auth.log.init.ApplicationLoggerInitializer
