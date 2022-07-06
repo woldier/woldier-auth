@@ -1,7 +1,27 @@
 # validation 使用 指南
+## 1.hibernate-validator常用注解
 
+hibernate-validator提供的校验方式为在类的属性上加入相应的注解来达到校验的目的。hibernate-validator提供的用于校验的注解如下：
 
+| 注解  | 说明  |
+| --- | --- |
+| @AssertTrue | 用于boolean字段，该字段只能为true |
+| @AssertFalse | 用于boolean字段，该字段只能为false |
+| @CreditCardNumber | 对信用卡号进行一个大致的验证 |
+| @DecimalMax | 只能小于或等于该值 |
+| @DecimalMin | 只能大于或等于该值 |
+| @Email | 检查是否是一个有效的email地址 |
+| @Future | 检查该字段的日期是否是属于将来的日期 |
+| @Length(min=,max=) | 检查所属的字段的长度是否在min和max之间,只能用于字符串 |
+| @Max | 该字段的值只能小于或等于该值 |
+| @Min | 该字段的值只能大于或等于该值 |
+| @NotNull | 不能为null |
+| @NotBlank | 不能为空，检查时会将空格忽略 |
+| @NotEmpty | 不能为空，这里的空是指空字符串 |
+| @Pattern(regex=) | 被注释的元素必须符合指定的正则表达式 |
+| @URL(protocol=,host,port) | 检查是否是一个有效的URL，如果提供了protocol，host等，则该URL还需满足提供的条件 |
 
+## 2.使用步骤
 wd-tools-validator没有提供全局异常处理，这是因为不同的系统对于校验结果的处理方式可能不一样，所以需要各个系统自己进行个性化的处理，而pd-tools-validator只是提供数据校验功能。
 
 **具体使用过程：**
@@ -21,9 +41,12 @@ wd-tools-validator没有提供全局异常处理，这是因为不同的系统�
         <version>2.2.2.RELEASE</version>
         <relativePath/>
     </parent>
-    <groupId>com.itheima</groupId>
+    
+<!-- 项目名自取   -->
+    <groupId>com.woldier</groupId>
     <artifactId>myHibernateValidatorApp</artifactId>
     <version>1.0-SNAPSHOT</version>
+    
     <dependencies>
         <dependency>
             <groupId>com.woldier</groupId>
@@ -134,3 +157,43 @@ Field error in object 'user' on field 'age': rejected value [0]; codes [Min.user
 这说明已经开始进行输入校验了，而且根据控制台输出可以看出已经开启快速失败返回模式。
 
 为了能够给页面一个友好的提示，也可以加入全局异常处理。
+ 
+## 3.异常处理示例
+```java
+package com.woldier.validator.config;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import java.util.Set;
+
+@ControllerAdvice(annotations = {RestController.class, Controller.class}) //切片  在加了RestController或者Controller注解的controller层组件上加入前置
+@ResponseBody //表明返回json数据
+public class ValidatorGlobalExceptionHandler {
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public String constraintViolationExceptionHandler(ConstraintViolationException e ){ //这里可在参数处获得注入的所有资源
+        String msg = "";
+        Set<ConstraintViolation<?>> violations =
+                e.getConstraintViolations();
+        ConstraintViolation<?> next = violations.iterator().next();
+        msg = next.getMessage();
+        return msg;
+    }
+
+    @ExceptionHandler(BindException.class)
+    public String BindExceptionHandler(BindException e ){
+        return e.getBindingResult().getFieldError().getDefaultMessage();
+    }
+
+
+
+}
+
+```
