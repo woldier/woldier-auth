@@ -9,8 +9,10 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 
 /**
  * 验证器配置
- *
+ * 但是 这并不是一个配置类 因为没有夹configuration注解
+ * 也是考虑到有些情况我们并不需要他快速返回
  */
+
 public class ValidatorConfiguration {
 
     @Bean

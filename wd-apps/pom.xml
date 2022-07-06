@@ -27,8 +27,8 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.itheima</groupId>
-                <artifactId>pd-auth-api</artifactId>
+                <groupId>com.woldier</groupId>
+                <artifactId>wd-auth-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

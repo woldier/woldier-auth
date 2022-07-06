@@ -13,6 +13,6 @@ import org.springframework.context.annotation.Import;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(ValidatorConfiguration.class)
+@Import(ValidatorConfiguration.class) //使用了EnableFormValidator注解 就会导入ValidatorConfiguration配置类 就可以开启快速返回
 public @interface EnableFormValidator {
 }
