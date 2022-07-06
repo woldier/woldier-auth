@@ -1,4 +1,4 @@
-package net.oschina.j2cache.support;
+package net.oschina.j2cache.cache.support;
 
 import net.oschina.j2cache.CacheChannel;
 import org.springframework.cache.Cache;

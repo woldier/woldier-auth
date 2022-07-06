@@ -1,8 +1,8 @@
 package com.woldier.auth.common.converter;
 
-import com.itheima.pinda.exception.BaseException;
-import com.itheima.pinda.exception.BizException;
-import com.itheima.pinda.utils.DateUtils;
+import com.woldier.auth.exception.BaseException;
+import com.woldier.auth.exception.BizException;
+import com.woldier.auth.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 
@@ -13,8 +13,8 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static com.itheima.pinda.exception.BaseException.BASE_VALID_PARAM;
-import static com.itheima.pinda.utils.DateUtils.*;
+import static com.woldier.auth.exception.BaseException.BASE_VALID_PARAM;
+import static com.woldier.auth.utils.DateUtils.*;
 
 /**
  * 解决入参为 Date类型

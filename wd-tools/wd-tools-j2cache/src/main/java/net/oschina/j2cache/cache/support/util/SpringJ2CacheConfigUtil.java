@@ -1,4 +1,4 @@
-package net.oschina.j2cache.support.util;
+package net.oschina.j2cache.cache.support.util;
 
 import net.oschina.j2cache.J2CacheConfig;
 import org.springframework.core.env.CompositePropertySource;

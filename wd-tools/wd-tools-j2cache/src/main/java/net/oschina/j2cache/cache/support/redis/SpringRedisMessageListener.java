@@ -1,4 +1,4 @@
-package net.oschina.j2cache.support.redis;
+package net.oschina.j2cache.cache.support.redis;
 
 import net.oschina.j2cache.Command;
 import net.oschina.j2cache.cluster.ClusterPolicy;

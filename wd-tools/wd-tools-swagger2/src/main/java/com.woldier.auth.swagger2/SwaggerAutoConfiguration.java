@@ -32,7 +32,9 @@ import java.util.stream.Collectors;
 })
 @EnableConfigurationProperties(SwaggerProperties.class)
 public class SwaggerAutoConfiguration implements BeanFactoryAware {
+
     private static final String AUTH_KEY = "token";
+
     @Autowired
     SwaggerProperties swaggerProperties;
 
@@ -40,7 +42,7 @@ public class SwaggerAutoConfiguration implements BeanFactoryAware {
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnProperty(name = "pinda.swagger.enabled", havingValue = "true", matchIfMissing = true)
+    @ConditionalOnProperty(name = "wd-auth.swagger.enabled", havingValue = "true", matchIfMissing = true)
     public List<Docket> createRestApi() {
         ConfigurableBeanFactory configurableBeanFactory = (ConfigurableBeanFactory) beanFactory;
         List<Docket> docketList = new LinkedList<>();

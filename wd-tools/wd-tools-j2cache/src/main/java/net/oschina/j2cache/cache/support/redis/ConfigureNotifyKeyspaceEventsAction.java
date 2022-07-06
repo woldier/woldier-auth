@@ -1,4 +1,4 @@
-package net.oschina.j2cache.support.redis;
+package net.oschina.j2cache.cache.support.redis;
 
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.redis.connection.RedisConnection;

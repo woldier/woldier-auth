@@ -19,7 +19,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Data
 //@RefreshScope
-@ConfigurationProperties(prefix = "pinda.swagger")
+@ConfigurationProperties(prefix = "wd-auth.swagger")
 public class SwaggerProperties {
     /**
      * 是否开启swagger
