@@ -22,7 +22,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync //开启异步处理
 @Configuration
 @AllArgsConstructor
-@ConditionalOnWebApplication
+@ConditionalOnWebApplication //web应用才生效
 @ConditionalOnProperty(name = "wd-auth.log.enabled", havingValue = "true", matchIfMissing = true) //检测 wd-auth.log.enabled 属性的值
 public class LogAutoConfiguration {
 

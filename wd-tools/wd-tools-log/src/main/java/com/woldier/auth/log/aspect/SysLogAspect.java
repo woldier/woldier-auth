@@ -204,7 +204,9 @@ public class SysLogAspect {
      * @param sysLog
      */
     private void publishEvent(OptLogDTO sysLog) {
+        /*设置结束时间*/
         sysLog.setFinishTime(LocalDateTime.now());
+        /*设置服务时间*/
         sysLog.setConsumingTime(sysLog.getStartTime().until(sysLog.getFinishTime(), ChronoUnit.MILLIS));
 
         applicationContext.publishEvent(new SysLogEvent(sysLog));
