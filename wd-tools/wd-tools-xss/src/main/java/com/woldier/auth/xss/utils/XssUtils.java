@@ -27,6 +27,7 @@ public class XssUtils {
         } catch (PolicyException e) {
             log.error("read XSS configfile [" + ANTISAMY_SLASHDOT_XML + "] fail , reason:", e);
         } finally {
+            /*文件流的关闭*/
             if (inputStream != null) {
                 try {
                     inputStream.close();
@@ -75,6 +76,15 @@ public class XssUtils {
         }
         return paramValue;
     }
+
+
+    /**
+     *
+     * 检测是否属于忽略过滤的参数列表
+     * @param paramValue
+     * @param ignoreParamValueList
+     * @return
+     */
 
     private static boolean isIgnoreParamValue(String paramValue, List<String> ignoreParamValueList) {
         if (StrUtil.isBlank(paramValue)) {

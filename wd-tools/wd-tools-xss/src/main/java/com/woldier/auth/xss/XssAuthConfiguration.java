@@ -34,13 +34,17 @@ public class XssAuthConfiguration {
      */
     @Bean
     public FilterRegistrationBean filterRegistrationBean() {
-        //TODO 想想这里如何扩展
+        //TODO 想想这里如何扩展 通过属性类增加更多的排除列表配置
 
         FilterRegistrationBean filterRegistration = new FilterRegistrationBean(new XssFilter());
         filterRegistration.addUrlPatterns("/*");
         filterRegistration.setOrder(1);
 
         Map<String, String> initParameters = new HashMap<>(2);
+
+        /**
+         * 排除列表
+         */
         String excludes = new StringJoiner(",")
                 .add("/favicon.ico")
                 .add("/doc.html")
@@ -57,7 +61,9 @@ public class XssAuthConfiguration {
                 .toString();
         initParameters.put("excludes", excludes);
         initParameters.put("isIncludeRichText", "true");
-        filterRegistration.setInitParameters(initParameters);
+
+        filterRegistration.setInitParameters(initParameters); /*参数加入filter中*/
+
         return filterRegistration;
     }
 }
