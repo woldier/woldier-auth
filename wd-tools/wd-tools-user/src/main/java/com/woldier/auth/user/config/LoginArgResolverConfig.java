@@ -19,34 +19,6 @@ public class LoginArgResolverConfig implements WebMvcConfigurer {
     @Lazy
     @Autowired
     private UserResolveApi userResolveApi;
-    /**
-     * Token参数解析
-     * @param argumentResolvers 解析类
-     */
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new ContextArgumentResolver(userResolveApi));
-    }
-
-    /**
-     * 注册 拦截器
-     * @param registry
-     */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        if (getHandlerInterceptor() != null) {
-            String[] commonPathPatterns = getExcludeCommonPathPatterns();
-            registry.addInterceptor(getHandlerInterceptor())
-                    .addPathPatterns("/**")
-                    .order(10)
-                    .excludePathPatterns(commonPathPatterns);
-            WebMvcConfigurer.super.addInterceptors(registry);
-        }
-    }
-
-    protected HandlerInterceptor getHandlerInterceptor() {
-        return new ContextHandlerInterceptor();
-    }
 
     /**
      * auth-client 中的拦截器需要排除拦截的地址
@@ -75,4 +47,40 @@ public class LoginArgResolverConfig implements WebMvcConfigurer {
         };
         return urls;
     }
+
+
+    protected HandlerInterceptor getHandlerInterceptor() {
+        return new ContextHandlerInterceptor();
+    }
+    /**
+     * 注册 拦截器
+     * @param registry
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        if (getHandlerInterceptor() != null) {
+            String[] commonPathPatterns = getExcludeCommonPathPatterns();
+            registry.addInterceptor(getHandlerInterceptor())
+                    .addPathPatterns("/**")
+                    .order(10)
+                    .excludePathPatterns(commonPathPatterns);
+            WebMvcConfigurer.super.addInterceptors(registry);
+        }
+    }
+
+    /**
+     * 添加一个参数解析器
+     * Token参数解析
+     * @param argumentResolvers 解析类
+     */
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(new ContextArgumentResolver(userResolveApi));
+    }
+
+
+
+
+
+
 }

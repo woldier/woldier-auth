@@ -16,7 +16,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 /**
  * Token转化SysUser
- *
+ * 一个方法参数解析器
  */
 @Slf4j
 public class ContextArgumentResolver implements HandlerMethodArgumentResolver {
@@ -28,7 +28,7 @@ public class ContextArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     /**
-     * 入参筛选
+     * 入参筛选 ，若要解析 需要满足相应条件
      *
      * @param mp 参数集合
      * @return 格式化后的参数
@@ -39,6 +39,8 @@ public class ContextArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     /**
+     *
+     * 参数的解析
      * @param methodParameter       入参集合
      * @param modelAndViewContainer model 和 view
      * @param nativeWebRequest      web相关
@@ -50,9 +52,13 @@ public class ContextArgumentResolver implements HandlerMethodArgumentResolver {
                                   ModelAndViewContainer modelAndViewContainer,
                                   NativeWebRequest nativeWebRequest,
                                   WebDataBinderFactory webDataBinderFactory) {
+        /*获取jwt解析后的userid*/
         Long userId = BaseContextHandler.getUserId();
+        /*获取jwt解析后的account*/
         String account = BaseContextHandler.getAccount();
+        /*获取jwt解析后的name*/
         String name = BaseContextHandler.getName();
+        /*获取jwt解析后的orgid*/
         Long orgId = BaseContextHandler.getOrgId();
         Long stationId = BaseContextHandler.getStationId();
 
@@ -66,24 +72,29 @@ public class ContextArgumentResolver implements HandlerMethodArgumentResolver {
                 .build();
 
         try {
+            /*获取方法参数的注解*/
             LoginUser loginUser = methodParameter.getParameterAnnotation(LoginUser.class);
+            /*得到注解isFull*/
             boolean isFull = loginUser.isFull();
-
+            /*判断LoginUser中有为True的吗*/
             if (isFull || loginUser.isStation() || loginUser.isOrg() || loginUser.isRoles()) {
+                /*调用api*/
                 R<SysUser> result = userResolveApi.getById(NumberHelper.longValueOf0(userId),
-                        UserQuery.builder()
+                        UserQuery.builder() //将注解中的属性转化为UserQuery对象
                                 .full(isFull)
                                 .org(loginUser.isOrg())
                                 .station(loginUser.isStation())
                                 .roles(loginUser.isRoles())
                                 .build());
+                /*如果api调用成功 并且 R对象中的data 不为空*/
                 if (result.getIsSuccess() && result.getData() != null) {
-                    return result.getData();
+                    return result.getData(); //返回查询到的
                 }
             }
         } catch (Exception e) {
             log.warn("注入登录人信息时，发生异常. --> {}", user, e);
         }
+        /*判断不成立，或者出现异常，返回最初的user*/
         return user;
     }
 }

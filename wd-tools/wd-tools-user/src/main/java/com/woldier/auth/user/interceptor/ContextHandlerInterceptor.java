@@ -34,6 +34,7 @@ public class ContextHandlerInterceptor extends HandlerInterceptorAdapter {
             String name = getHeader(request, BaseContextConstants.JWT_KEY_NAME);
             String orgId = getHeader(request, BaseContextConstants.JWT_KEY_ORG_ID);
             String stationId = getHeader(request, BaseContextConstants.JWT_KEY_STATION_ID);
+            /*将信息加入到ThreadLocal中保存*/
             BaseContextHandler.setUserId(userId);
             BaseContextHandler.setAccount(account);
             BaseContextHandler.setName(name);
@@ -50,9 +51,19 @@ public class ContextHandlerInterceptor extends HandlerInterceptorAdapter {
         if (StringUtils.isEmpty(value)) {
             return null;
         }
+        /*返回UTF-8解码后的value*/
         return StrHelper.decode(value);
     }
 
+
+    /**
+     * 后置处理 将BaseContextHandler中的信息删除
+     * @param request
+     * @param response
+     * @param handler
+     * @param ex
+     * @throws Exception
+     */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         BaseContextHandler.remove();
