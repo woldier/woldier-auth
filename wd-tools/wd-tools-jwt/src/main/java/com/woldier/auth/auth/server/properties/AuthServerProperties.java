@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Data
 @NoArgsConstructor
-@ConfigurationProperties(prefix = AuthServerProperties.PREFIX)
+@ConfigurationProperties(prefix = AuthServerProperties.PREFIX) //配置前缀来自AuthServerProperties.PREFIX常量
 public class AuthServerProperties {
     public static final String PREFIX = "authentication";
 

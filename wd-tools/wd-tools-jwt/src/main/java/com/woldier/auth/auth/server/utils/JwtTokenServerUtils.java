@@ -23,11 +23,13 @@ public class JwtTokenServerUtils {
      * @param jwtInfo
      * @param expire
      * @return
-     * @throws BizException
+     * @throws BizException  更具返回的 BizException中的code 再全局异常处理器中进行处理
      */
     public Token generateUserToken(JwtUserInfo jwtInfo, Integer expire) throws BizException {
+        /*得到AuthServerProperties中的内嵌类TokenInfo的对象并为他赋值（其值源于属性类中的TokenInfo对象）*/
         AuthServerProperties.TokenInfo userTokenInfo = authServerProperties.getUser();
         if (expire == null || expire <= 0) {
+            /*若参数expire为null 或者小于等于零 则使用默认的expire*/
             expire = userTokenInfo.getExpire();
         }
         return JwtHelper.generateUserToken(jwtInfo, userTokenInfo.getPriKey(), expire);
@@ -35,9 +37,8 @@ public class JwtTokenServerUtils {
 
     /**
      * 解析token
-     * @param token
-     * @return
-     * @throws BizException
+     * @param token 传入token
+     * @throws BizException 更具返回的 BizException中的code 再全局异常处理器中进行处理
      */
     public JwtUserInfo getUserInfo(String token) throws BizException {
         AuthServerProperties.TokenInfo userTokenInfo = authServerProperties.getUser();

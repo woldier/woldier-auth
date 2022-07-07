@@ -22,9 +22,9 @@ public class JwtTokenClientUtils {
     /**
      * 解析token
      *
-     * @param token
+     * @param token 传入token
      * @return
-     * @throws BizException
+     * @throws BizException 更具返回的 BizException中的code 再全局异常处理器中进行处理
      */
     public JwtUserInfo getUserInfo(String token) throws BizException {
         AuthClientProperties.TokenInfo userTokenInfo = authClientProperties.getUser();

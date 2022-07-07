@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- *
+ * token的封装类
  */
 @Data
 @NoArgsConstructor
