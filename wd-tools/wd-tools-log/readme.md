@@ -17,10 +17,10 @@ wd-tools-log涉及到的技术点：
 
 ### 1.1 logback介绍
 
-Logback继承自log4j。Logback的架构非常的通用，适用于不同的使用场景。\
+Logback继承自log4j。Logback的架构非常的通用，适用于不同的使用场景。
 
-| 抽象层(SLF4F API)|
-
+| 抽象层(SLF4F API)|抽象层(SLF4F API)|抽象层(SLF4F API)|抽象层(SLF4F API)|
+| --- | --- | --- | --- |
 | Logback | Log4j | JDK logging | tinylog | 
 
 
