@@ -732,13 +732,13 @@ logback-spring.xml
 
     <!--开发环境-->
     <springProfile name="dev">
-        <logger name="com.itheima" additivity="false" level="debug">
+        <logger name="com.woldier" additivity="false" level="debug">
             <appender-ref ref="LOG_CONSOLE"/>
         </logger>
     </springProfile>
     <!--生产环境-->
     <springProfile name="pro">
-        <logger name="com.itheima" additivity="false" level="info">
+        <logger name="com.woldier" additivity="false" level="info">
             <appender-ref ref="LOG_FILE"/>
         </logger>
     </springProfile>
