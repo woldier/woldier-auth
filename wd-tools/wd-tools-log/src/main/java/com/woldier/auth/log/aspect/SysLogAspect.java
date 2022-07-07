@@ -41,6 +41,7 @@ public class SysLogAspect {
     @Autowired
     private ApplicationContext applicationContext;
 
+    /*线程实体*/
     private static final ThreadLocal<OptLogDTO> THREAD_LOCAL = new ThreadLocal<>();
 
     /***
@@ -51,22 +52,39 @@ public class SysLogAspect {
 
     }
 
+    /**
+     * 通过THREAD_LOCAL获取OptLogDTO实体
+     * @return
+     */
     private OptLogDTO get() {
+        /*THREAD_LOCAL中有则拿THREAD_LOCAL线程中的OptLogDTO实体*/
         OptLogDTO sysLog = THREAD_LOCAL.get();
         if (sysLog == null) {
+            /*THREAD_LOCAL中没有则拿创建OptLogDTO实体*/
             return new OptLogDTO();
         }
         return sysLog;
     }
 
-    @Before(value = "sysLogAspect()")
+    /**
+     * 前置通知
+     * @param joinPoint
+     * @throws Throwable
+     */
+    @Before(value = "sysLogAspect()") //指定为哪个切点的前置
     public void recordLog(JoinPoint joinPoint) throws Throwable {
         tryCatch((val) -> {
             // 开始时间
+            /*获取线程中的OptLogDTO实体，没有则创建*/
             OptLogDTO sysLog = get();
+            /*通过wd-tools-common中的类获取一些信息*/
             sysLog.setCreateUser(BaseContextHandler.getUserId());
             sysLog.setUserName(BaseContextHandler.getName());
+
+            /*controller 描述信息*/
             String controllerDescription = "";
+
+            /*此信息来自于swagger2- 若controller上加了@Api则可以获得其中的描述信息*/
             Api api = joinPoint.getTarget().getClass().getAnnotation(Api.class);
             if (api != null) {
                 String[] tags = api.tags();
@@ -74,15 +92,18 @@ public class SysLogAspect {
                     controllerDescription = tags[0];
                 }
             }
-
+            /*切点信息获取的封装*/
             String controllerMethodDescription = LogUtil.getControllerMethodDescription(joinPoint);
+
+            /*获取到的 controllerDescription 为null时 只写入controllerMethodDescription*/
             if (StrUtil.isEmpty(controllerDescription)) {
                 sysLog.setDescription(controllerMethodDescription);
             } else {
+                /*controllerDescription 不为null时 ，将其也写入*/
                 sysLog.setDescription(controllerDescription + "-" + controllerMethodDescription);
             }
 
-            // 类名
+            // 存储类名
             sysLog.setClassPath(joinPoint.getTarget().getClass().getName());
             //获取执行的方法名
             sysLog.setActionMethod(joinPoint.getSignature().getName());
@@ -91,29 +112,46 @@ public class SysLogAspect {
             // 参数
             Object[] args = joinPoint.getArgs();
 
+
             String strArgs = "";
-            HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+            /**
+             * Objects.requireNonNull(obj)检查指定的对象引用是否为空。该方法主要用于在方法和构造函数中进行参数验证，如下所示:
+             *  public Foo(Bar bar) {
+             *            this.bar = Objects.requireNonNull(bar);
+             *        }
+             *
+             *从spring中的RequestContextHolder中得到与当前线程绑定的请求参数（若为空则抛出异常） 并且强转为ServletRequestAttributes
+             */
+            HttpServletRequest request = (
+                    (ServletRequestAttributes) Objects
+                            .requireNonNull(RequestContextHolder.getRequestAttributes())
+                    ).getRequest();
             try {
+                /*如果传递的参数不是multipart/form-data 则通过json对象转换器转换为字符串*/
                 if (!request.getContentType().contains("multipart/form-data")) {
                     strArgs = JSONObject.toJSONString(args);
                 }
             } catch (Exception e) {
                 try {
+                    /*如果json解析失败的话就通过Arrays.toString解决*/
                     strArgs = Arrays.toString(args);
                 } catch (Exception ex) {
                     log.warn("解析参数异常", ex);
                 }
             }
+            /*截取字符串的最大长度为65535*/
             sysLog.setParams(getText(strArgs));
 
             if (request != null) {
+                /*获取ip*/
                 sysLog.setRequestIp(ServletUtil.getClientIP(request));
                 sysLog.setRequestUri(URLUtil.getPath(request.getRequestURI()));
                 sysLog.setHttpMethod(request.getMethod());
+                /*获取请求头agent中的数据*/
                 sysLog.setUa(StrUtil.sub(request.getHeader("user-agent"), 0, 500));
             }
             sysLog.setStartTime(LocalDateTime.now());
-
+            /*在前置通知处理完后吧线程id保存 ，用于在后置通知时进行获取该线程对象，免于后置通知时重新创建该对象*/
             THREAD_LOCAL.set(sysLog);
         });
     }
@@ -129,7 +167,7 @@ public class SysLogAspect {
     }
 
     /**
-     * 返回通知
+     * 返回通知（后置通知）
      *
      * @param ret
      * @throws Throwable
@@ -138,6 +176,7 @@ public class SysLogAspect {
     public void doAfterReturning(Object ret) {
         tryCatch((aaa) -> {
             R r = Convert.convert(R.class, ret);
+            /*从线程中获得OptLogDTO*/
             OptLogDTO sysLog = get();
             if (r == null) {
                 sysLog.setType("OPT");
@@ -151,15 +190,30 @@ public class SysLogAspect {
                 sysLog.setResult(getText(r.toString()));
             }
 
+            /*发布log*/
+            //另一个线程中SysLogListener
             publishEvent(sysLog);
         });
 
     }
 
+
+    /**
+     *
+     * 事件的发布
+     * @param sysLog
+     */
     private void publishEvent(OptLogDTO sysLog) {
         sysLog.setFinishTime(LocalDateTime.now());
         sysLog.setConsumingTime(sysLog.getStartTime().until(sysLog.getFinishTime(), ChronoUnit.MILLIS));
+
         applicationContext.publishEvent(new SysLogEvent(sysLog));
+
+        /**
+         * 移除此线程局部变量的当前线程值。
+         * 如果这个线程局部变量随后被当前线程读取，它的值将通过调用它的initialValue方法重新初始化，除非它的值在此期间是由当前线程设置的。
+         * 这可能导致在当前线程中多次调用initialValue方法。
+         */
         THREAD_LOCAL.remove();
     }
 

@@ -21,7 +21,9 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode
-@Accessors(chain = true)
+
+
+@Accessors(chain = true) // ?
 public class OptLogDTO {
 
     private static final long serialVersionUID = 1L;

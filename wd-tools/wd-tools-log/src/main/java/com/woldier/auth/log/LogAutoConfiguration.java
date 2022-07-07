@@ -19,13 +19,16 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * 3，配置文件中不存在：pinda.log.enabled 值
  *
  */
-@EnableAsync
+@EnableAsync //开启异步处理
 @Configuration
 @AllArgsConstructor
 @ConditionalOnWebApplication
-@ConditionalOnProperty(name = "pinda.log.enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(name = "wd-auth.log.enabled", havingValue = "true", matchIfMissing = true) //检测 wd-auth.log.enabled 属性的值
 public class LogAutoConfiguration {
 
+    /**
+     * SysLogAspect bean注入
+     * */
     @Bean
     @ConditionalOnMissingBean
     public SysLogAspect sysLogAspect() {

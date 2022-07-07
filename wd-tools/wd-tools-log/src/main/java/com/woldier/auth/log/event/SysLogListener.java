@@ -18,10 +18,11 @@ public class SysLogListener {
     //private String database;
     private Consumer<OptLogDTO> consumer;
 
-    @Async
+    @Async//异步
     @Order
     @EventListener(SysLogEvent.class)
     public void saveSysLog(SysLogEvent event) {
+        /*转OptLogDTO*/
         OptLogDTO optLog = (OptLogDTO) event.getSource();
         //BaseContextHandler.setDatabase(database);
         consumer.accept(optLog);
