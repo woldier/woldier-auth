@@ -9,13 +9,20 @@ import java.time.LocalTime;
  */
 public class TimeUtils {
 
+    /**
+     * 获取密码输出错误的等待时间
+     * @param time 传入时间
+     * @return 转为date
+     */
     public static LocalDateTime getPasswordErrorLockTime(String time) {
         if (time == null || "".equals(time)) {
             return LocalDateTime.MAX;
         }
         if ("0".equals(time)) {
+            /**返回最大时间 当天不允许在登陆*/
             return LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
         }
+        /*传为char*/
         char unit = Character.toLowerCase(time.charAt(time.length() - 1));
 
         if (time.length() == 1) {

@@ -6,6 +6,7 @@ package com.woldier.auth.exception;
  */
 public class BaseUncheckedException extends RuntimeException implements BaseException {
 
+    /*序列化id*/
     private static final long serialVersionUID = -778887391066124051L;
 
     /**

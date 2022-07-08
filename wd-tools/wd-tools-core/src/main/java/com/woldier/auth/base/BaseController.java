@@ -166,7 +166,9 @@ public abstract class BaseController {
         pageSize = pageSize > MAX_LIMIT ? MAX_LIMIT : pageSize;
         Page<T> page = new Page<>(pageNo, pageSize);
         if (openSort) {
+            /*根据ascs字段升序*/
             page.setAsc(getParameterSafeValues(PAGE_ASCS));
+            /*根据descs字段降序*/
             page.setDesc(getParameterSafeValues(PAGE_DESCS));
         }
         return page;
@@ -182,6 +184,9 @@ public abstract class BaseController {
         return AntiSqlFilter.getSafeValues(request.getParameterValues(parameter));
     }
 
+    /**
+     * 获取开始时间
+     * */
     protected LocalDateTime getStartCreateTime() {
         return getLocalDateTime(START_CREATE_TIME);
     }

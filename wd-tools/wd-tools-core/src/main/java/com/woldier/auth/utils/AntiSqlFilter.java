@@ -7,6 +7,9 @@ import java.util.Map;
 
 
 /**
+ * =====================================================================
+ * 反sql注入
+ * =====================================================================
  * AntiSQLFilter is a J2EE Web Application Filter that protects web components from SQL Injection hacker attacks.<br>
  * Must to be configured with web.xml descriptors.
  * <br><br>
@@ -36,6 +39,11 @@ public class AntiSqlFilter {
             "select", "update", "delete", "insert",
             "alter", "drop", "create", "shutdown"};
 
+    /**
+     * 传入http请求中的parameterMap 通过处理获得安全的parameterMap
+     * @param parameterMap
+     * @return
+     */
     public static Map<String, String[]> getSafeParameterMap(Map<String, String[]> parameterMap) {
         Map<String, String[]> map = new HashMap<>(parameterMap.size());
         for (String key : parameterMap.keySet()) {
@@ -45,6 +53,11 @@ public class AntiSqlFilter {
         return map;
     }
 
+    /**
+     * 传入参数值 获取进行反注入校验
+     * @param oldValues string数组
+     * @return
+     */
     public static String[] getSafeValues(String[] oldValues) {
         if (ArrayUtils.isNotEmpty(oldValues)) {
             String[] newValues = new String[oldValues.length];
@@ -56,6 +69,11 @@ public class AntiSqlFilter {
         return null;
     }
 
+    /**
+     * 传入参数值 获取进行反注入校验
+     * @param oldValue 单个string
+     * @return
+     */
     public static String getSafeValue(String oldValue) {
         if (oldValue == null || "".equals(oldValue)) {
             return oldValue;

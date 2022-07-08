@@ -19,6 +19,9 @@ import java.util.stream.Stream;
  */
 @Slf4j
 public class DateUtils {
+    /**
+     * 一些常量的定义
+     */
     public final static String DEFAULT_YEAR_FORMAT = "yyyy";
     public final static String DEFAULT_MONTH_FORMAT = "yyyy-MM";
     public final static String DEFAULT_MONTH_FORMAT_SLASH = "yyyy/MM";
@@ -32,7 +35,7 @@ public class DateUtils {
     public final static String DAY = "DAY";
     public final static String MONTH = "MONTH";
     public final static String WEEK = "WEEK";
-
+    /*=================================================================*/
     /**
      * 一个月平均天数
      */
@@ -47,6 +50,9 @@ public class DateUtils {
     public final static long MAX_YEAR_DAY = 365;
 
 
+    /**
+     * singleton mode
+     */
     private DateUtils() {
     }
 //--格式化日期start-----------------------------------------
@@ -64,6 +70,18 @@ public class DateUtils {
         if (pattern == null) {
             pattern = DEFAULT_MONTH_FORMAT;
         }
+        /**
+         * 使用指定的模式创建格式化程序。
+         * 此方法将根据类文档中描述的字母和符号的简单模式创建一个格式化程序。
+         * 例如:d MMM uuuu会将2011-12-03格式化为“3 Dec 2011”。
+         * 格式化程序将使用默认的FORMAT区域设置。
+         * 这可以使用返回的格式化程序上的withLocale(Locale)来更改，或者使用该方法的ofPattern(String, Locale)变体。
+         * 返回的格式化程序没有覆盖年表或区域。它使用SMART解析器样式。
+         *
+         * 参数: Pattern -要使用的模式，非null
+         * 返回: 基于模式的格式化程序，不为空
+         * 抛出: IllegalArgumentException -如果模式无效 参见: DateTimeFormatterBuilder.appendPattern(字符串)
+         */
         return date.format(DateTimeFormatter.ofPattern(pattern));
     }
 
@@ -71,7 +89,7 @@ public class DateUtils {
      * 根据传入的格式格式化日期.默认格式为MM月dd日
      *
      * @param d 日期
-     * @param f 格式
+     * @param f 格式 来自本类定义的常量
      * @return
      */
     public static String format(Date d, String f) {
@@ -83,6 +101,9 @@ public class DateUtils {
         if (format == null) {
             format = DEFAULT_DATE_TIME_FORMAT;
         }
+        /*
+         * SimpleDateFormat来格式化
+         */
         SimpleDateFormat df = new SimpleDateFormat(format);
         return df.format(date);
     }

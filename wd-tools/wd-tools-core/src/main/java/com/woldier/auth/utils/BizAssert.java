@@ -27,6 +27,10 @@ public class BizAssert {
         throw new BizException(code, message);
     }
 
+    /**
+     * 参数传入BaseExceptionCode对象
+    *  进行异常抛出
+    * */
     public static void fail(BaseExceptionCode exceptionCode) {
         if (exceptionCode != null) {
             throw new BizException(exceptionCode.getCode(), exceptionCode.getMsg());
@@ -36,13 +40,16 @@ public class BizAssert {
 
     /**
      * Fails a test with no message.
-     *
+     *    无参
      * @
      */
     public static void fail() {
         fail(BASE_VALID_PARAM, "参数验证异常");
     }
 
+    /**
+     * 给定message 实际调用fail(int code, String message)
+     * */
     public static void fail(String message) {
         if (message == null || "".equals(message)) {
             message = "参数验证异常";
@@ -60,7 +67,7 @@ public class BizAssert {
      */
     public static void isTrue(boolean condition, BaseExceptionCode exceptionCode) {
         if (!condition) {
-            fail(exceptionCode);
+            fail(exceptionCode);/*条件判断为true会抛出异常*/
         }
     }
 

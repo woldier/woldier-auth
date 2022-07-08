@@ -1,7 +1,7 @@
 package com.woldier.auth.context;
 
 /**
- * 常量工具类
+ * 常量工具类  相当于一个JWT枚举器
  *
  */
 public class BaseContextConstants {
