@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class DatabaseProperties {
-    public static final String PREFIX = "pinda.database";
+    public static final String PREFIX = "wd-auth.database";
     /**
      * 攻击 SQL 阻断解析器
      */
