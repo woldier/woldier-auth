@@ -13,6 +13,9 @@ import java.util.List;
 @EqualsAndHashCode
 @ToString(callSuper = true)
 @Builder
+/**
+ * user封装类
+ */
 public class SysUser {
     private static final long serialVersionUID = -5886012896705137070L;
 

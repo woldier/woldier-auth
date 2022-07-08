@@ -11,6 +11,9 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Builder
+/**
+ * 将@LoginUser注释中的属性值对象化 ，用于后续远程调用fegin （UserResolveApi）给定参数信息
+ */
 public class UserQuery {
     /**
      * 是否查询SysUser对象所有信息，true则通过rpc接口查询

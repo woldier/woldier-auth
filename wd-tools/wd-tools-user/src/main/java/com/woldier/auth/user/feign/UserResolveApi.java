@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * 用户操作API
  */
+/*name指定微服务名 ，fallbackFactory指定失败处理*/
 @FeignClient(name = "${woldier.feign.authority-server:woldier-auth-server}", fallbackFactory = UserResolveApiFallback.class)
 public interface UserResolveApi {
     /**

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 用户API熔断
+ * 如果请求失败则通过该回退工厂来处理
  *
  */
 @Component
