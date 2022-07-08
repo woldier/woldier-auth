@@ -1,12 +1,12 @@
-package com.woldier.auth;
+package com.woldier.auth.authority;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ZuulServerApplication {
+public class EntityApplication {
+
     public static void main(String[] args) {
-        SpringApplication.run(ZuulServerApplication.class,args);
+        SpringApplication.run(EntityApplication.class,args);
     }
 }
-

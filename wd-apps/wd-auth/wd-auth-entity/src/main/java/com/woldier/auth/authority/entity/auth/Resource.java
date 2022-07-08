@@ -34,7 +34,7 @@ import static com.baomidou.mybatisplus.annotation.SqlCondition.LIKE;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("pd_auth_resource")
+@TableName("wd_auth_resource") //指定与那一张表建立联系
 @ApiModel(value = "Resource", description = "资源")
 public class Resource extends Entity<Long> {
 

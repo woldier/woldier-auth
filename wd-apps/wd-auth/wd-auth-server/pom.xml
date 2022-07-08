@@ -97,6 +97,7 @@
             <groupId>com.woldier</groupId>
             <artifactId>wd-tools-xss</artifactId>
         </dependency>
+        <!--    nacos服务发现    -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>

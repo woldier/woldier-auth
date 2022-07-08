@@ -33,7 +33,7 @@ import lombok.experimental.Accessors;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("pd_auth_user_role")
+@TableName("wd_auth_user_role") //指定与那一张表建立联系
 @ApiModel(value = "UserRole", description = "角色分配")
 public class UserRole extends SuperEntity<Long> {
 

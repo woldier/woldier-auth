@@ -34,7 +34,7 @@ import static com.baomidou.mybatisplus.annotation.SqlCondition.LIKE;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("pd_core_station")
+@TableName("wd_core_station")
 @ApiModel(value = "Station", description = "岗位")
 public class Station extends Entity<Long> {
     private static final long serialVersionUID = 1L;

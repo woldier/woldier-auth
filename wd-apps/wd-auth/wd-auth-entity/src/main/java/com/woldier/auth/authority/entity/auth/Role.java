@@ -35,7 +35,7 @@ import static com.baomidou.mybatisplus.annotation.SqlCondition.LIKE;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("pd_auth_role")
+@TableName("wd_auth_role")
 @ApiModel(value = "Role", description = "角色")
 public class Role extends Entity<Long> {
 
