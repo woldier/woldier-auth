@@ -37,17 +37,31 @@ import static com.woldier.auth.utils.StrPool.EMPTY;
 
 
 /**
- *
+ * 自己的项目中继承该类 然后加入下面注释掉的两个注解即可成为一个自己的全局处理器
  */
 //@ControllerAdvice(annotations = {RestController.class, Controller.class})
 //@ResponseBody
 @Slf4j
 public abstract class DefaultGlobalExceptionHandler {
+
+    /**
+     * 业务异常
+     * @param ex
+     * @param request
+     * @return
+     */
     @ExceptionHandler(BizException.class)
     public R<String> bizException(BizException ex, HttpServletRequest request) {
         log.warn("BizException:", ex);
         return R.result(ex.getCode(), StrPool.EMPTY, ex.getMessage()).setPath(request.getRequestURI());
     }
+
+    /**
+     * http项目不可读（读取失败）异常
+     * @param ex
+     * @param request
+     * @return
+     */
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public R httpMessageNotReadableException(HttpMessageNotReadableException ex, HttpServletRequest request) {
@@ -59,6 +73,14 @@ public abstract class DefaultGlobalExceptionHandler {
         }
         return R.result(ExceptionCode.PARAM_EX.getCode(), StrPool.EMPTY, ExceptionCode.PARAM_EX.getMsg()).setPath(request.getRequestURI());
     }
+
+
+    /**
+     * xss异常
+     * @param ex
+     * @param request
+     * @return
+     */
 
     @ExceptionHandler(BindException.class)
     public R bindException(BindException ex, HttpServletRequest request) {
@@ -81,6 +103,12 @@ public abstract class DefaultGlobalExceptionHandler {
     }
 
 
+    /**
+     * 方法参数不匹配异常
+     * @param ex
+     * @param request
+     * @return
+     */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public R methodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex, HttpServletRequest request) {
         log.warn("MethodArgumentTypeMismatchException:", ex);

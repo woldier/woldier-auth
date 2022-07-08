@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.woldier.auth.utils.StrPool;
 
 /**
- * 用于同一管理和生成缓存的region和key， 避免多个项目使用的key重复
+ * 用于统一管理和生成缓存的region和key， 避免多个项目使用的key重复
  */
 public interface CacheKey {
     /**
