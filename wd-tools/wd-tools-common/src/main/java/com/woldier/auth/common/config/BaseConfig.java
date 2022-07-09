@@ -181,6 +181,10 @@ public abstract class BaseConfig {
     }
 
 
+    /**
+     * 启动服务若不使用tomcat 使用的Undertow则会载入该bean
+     * @return
+     */
     @Bean
     @ConditionalOnClass(Undertow.class)
     public UndertowServerFactoryCustomizer getUndertowServerFactoryCustomizer() {
