@@ -136,6 +136,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <!--    排除tomcat 这里使用的是undertow        -->
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.tomcat.embed</groupId>
@@ -147,6 +148,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!--    undertow starter坐标导入    -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-undertow</artifactId>
