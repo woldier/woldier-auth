@@ -74,7 +74,7 @@ public abstract class BaseDatabaseConfiguration implements InitializingBean {
     private final List<MybatisPlusPropertiesCustomizer> mybatisPlusPropertiesCustomizers;
     private final ApplicationContext applicationContext;
     @Value("${spring.profiles.active:dev}")
-    protected String profiles;
+    protected String profiles; /*通过spring.profiles.active获得当前的业务环境,默认为dev*/
 
     public BaseDatabaseConfiguration(MybatisPlusProperties properties,
                                      DatabaseProperties databaseProperties,

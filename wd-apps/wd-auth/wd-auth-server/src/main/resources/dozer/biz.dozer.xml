@@ -1,5 +1,3 @@
-<!--dozer对象映射的配置
-由nacos中的common.yml配置本文件名与路径-->
 <?xml version="1.0" encoding="UTF-8"?>
 <mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xmlns="http://dozermapper.github.io/schema/bean-mapping"

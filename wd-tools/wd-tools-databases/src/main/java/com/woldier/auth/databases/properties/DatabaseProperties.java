@@ -39,5 +39,5 @@ public class DatabaseProperties {
     /**
      * 事务扫描基础包
      */
-    private String transactionScanPackage = "com.itheima.pinda";
+    private String transactionScanPackage = "com.woldier.auth";
 }
