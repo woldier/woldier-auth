@@ -43,7 +43,7 @@ import static com.woldier.auth.utils.DateUtils.*;
 
 /**
  * 基础配置类
- *
+ * 继承 的类需要加入@Configuration注解
  */
 public abstract class BaseConfig {
 
@@ -169,7 +169,8 @@ public abstract class BaseConfig {
 
     /**
      * Spring 工具类
-     *
+     * 这里我们将容器注入进去了
+     * 我们通过注入SpringUtils就可以得到容器
      * @param applicationContext
      * @return
      */

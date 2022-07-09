@@ -6,7 +6,7 @@ import org.springframework.util.Assert;
 import java.util.Map;
 
 /**
- *
+ * 统一通过该类获得spring容器
  */
 @SuppressWarnings("squid:S1166")
 public class SpringUtils {
