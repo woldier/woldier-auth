@@ -35,8 +35,8 @@ CREATE TABLE `wd_auth_menu`  (
   `parent_id` bigint(20) NULL DEFAULT 0 COMMENT '父级菜单id',
   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人id',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
-  `uwdate_user` bigint(20) NULL DEFAULT NULL COMMENT '更新人id',
-  `uwdate_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '更新人id',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `INX_STATUS`(`is_enable`, `is_public`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单' ROW_FORMAT = Compact;
@@ -77,8 +77,8 @@ CREATE TABLE `wd_auth_resource`  (
   `describe_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '接口描述',
   `create_user` bigint(20) NULL DEFAULT NULL COMMENT '创建人id',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
-  `uwdate_user` bigint(20) NULL DEFAULT NULL COMMENT '更新人id',
-  `uwdate_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '更新人id',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `UN_CODE`(`code`) USING BTREE COMMENT '编码唯一'
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '资源' ROW_FORMAT = Compact;
@@ -89,33 +89,33 @@ CREATE TABLE `wd_auth_resource`  (
 INSERT INTO `wd_auth_resource` VALUES (643444685339100193, 'org:add', '添加', 603982542332235201, 'POST', '/org', '', 3, '2019-11-11 13:39:28', 3, '2019-11-11 13:39:50');
 INSERT INTO `wd_auth_resource` VALUES (643444685339100194, 'role:config', '配置', 603981723864141121, 'POST', '/role/authority', '', 3, '2019-11-11 13:39:28', 3, '2020-03-03 19:57:51');
 INSERT INTO `wd_auth_resource` VALUES (643444685339100195, 'resource:add', '添加', 603976297063910529, 'POST', '/resource', '', 3, '2019-11-11 13:39:28', 3, '2019-11-11 13:39:50');
-INSERT INTO `wd_auth_resource` VALUES (643444685339100196, 'resource:uwdate', '修改', 603976297063910529, 'PUT', '/resource', '', 3, '2019-11-11 13:39:28', 3, '2019-11-11 13:39:50');
+INSERT INTO `wd_auth_resource` VALUES (643444685339100196, 'resource:update', '修改', 603976297063910529, 'PUT', '/resource', '', 3, '2019-11-11 13:39:28', 3, '2019-11-11 13:39:50');
 INSERT INTO `wd_auth_resource` VALUES (643444685339100197, 'resource:delete', '删除', 603976297063910529, 'DELETE', '/resource', '', 3, '2019-11-11 13:39:28', 3, '2019-11-11 13:39:50');
-INSERT INTO `wd_auth_resource` VALUES (643444819758154945, 'org:uwdate', '修改', 603982542332235201, 'PUT', '/org', '', 3, '2019-11-11 13:40:00', 3, '2019-11-11 13:40:00');
+INSERT INTO `wd_auth_resource` VALUES (643444819758154945, 'org:update', '修改', 603982542332235201, 'PUT', '/org', '', 3, '2019-11-11 13:40:00', 3, '2019-11-11 13:40:00');
 INSERT INTO `wd_auth_resource` VALUES (643444858974897441, 'org:delete', '删除', 603982542332235201, 'DELETE', '/org', '', 3, '2019-11-11 13:40:09', 3, '2019-11-11 13:40:09');
 INSERT INTO `wd_auth_resource` VALUES (643444897201784193, 'org:view', '查询', 603982542332235201, 'GET', '/org/tree', '', 3, '2019-11-11 13:40:18', 3, '2020-03-03 19:53:41');
 INSERT INTO `wd_auth_resource` VALUES (643444992357959137, 'org:import', '导入', 603982542332235201, 'POST', '/org', '', 3, '2019-11-11 13:40:41', 3, '2019-11-11 13:40:41');
 INSERT INTO `wd_auth_resource` VALUES (643445016773002817, 'org:export', '导出', 603982542332235201, 'GET', '/org', '', 3, '2019-11-11 13:40:47', 3, '2019-11-11 13:40:47');
 INSERT INTO `wd_auth_resource` VALUES (643445116756821697, 'station:add', '添加', 603982713849908801, 'POST', '/station', '', 3, '2019-11-11 13:41:11', 3, '2019-11-11 13:41:11');
-INSERT INTO `wd_auth_resource` VALUES (643445162915137313, 'station:uwdate', '修改', 603982713849908801, 'PUT', '/station', '', 3, '2019-11-11 13:41:22', 3, '2019-11-11 13:41:22');
+INSERT INTO `wd_auth_resource` VALUES (643445162915137313, 'station:update', '修改', 603982713849908801, 'PUT', '/station', '', 3, '2019-11-11 13:41:22', 3, '2019-11-11 13:41:22');
 INSERT INTO `wd_auth_resource` VALUES (643445197954353025, 'station:delete', '删除', 603982713849908801, 'DELETE', '/station', '', 3, '2019-11-11 13:41:30', 3, '2019-11-11 13:41:30');
 INSERT INTO `wd_auth_resource` VALUES (643445229575210977, 'station:view', '查看', 603982713849908801, 'GET', '/station/page', '', 3, '2019-11-11 13:41:38', 3, '2020-03-03 19:54:12');
 INSERT INTO `wd_auth_resource` VALUES (643445262110427201, 'station:export', '导出', 603982713849908801, 'GET', '/station', '', 3, '2019-11-11 13:41:45', 3, '2019-11-11 13:41:45');
 INSERT INTO `wd_auth_resource` VALUES (643445283996305569, 'station:import', '导入', 603982713849908801, 'POST', '/station', '', 3, '2019-11-11 13:41:51', 3, '2019-11-11 13:41:51');
 INSERT INTO `wd_auth_resource` VALUES (643445352703199521, 'user:add', '添加', 603983082961243905, 'POST', '/user', '', 3, '2019-11-11 13:42:07', 3, '2019-11-11 13:42:07');
-INSERT INTO `wd_auth_resource` VALUES (643445412774021505, 'user:uwdate', '修改', 603983082961243905, 'PUT', '/user', '', 3, '2019-11-11 13:42:21', 3, '2019-11-11 13:42:21');
+INSERT INTO `wd_auth_resource` VALUES (643445412774021505, 'user:update', '修改', 603983082961243905, 'PUT', '/user', '', 3, '2019-11-11 13:42:21', 3, '2019-11-11 13:42:21');
 INSERT INTO `wd_auth_resource` VALUES (643445448081672673, 'user:delete', '删除', 603983082961243905, 'DELETE', '/user', '', 3, '2019-11-11 13:42:30', 3, '2019-11-11 13:42:30');
 INSERT INTO `wd_auth_resource` VALUES (643445477274028609, 'user:view', '查看', 603983082961243905, 'GET', '/user/page', '', 3, '2019-11-11 13:42:37', 3, '2020-03-03 19:54:41');
 INSERT INTO `wd_auth_resource` VALUES (643445514607528609, 'user:import', '导入', 603983082961243905, 'POST', '/user', '', 3, '2019-11-11 13:42:46', 3, '2019-11-11 13:42:46');
 INSERT INTO `wd_auth_resource` VALUES (643445542076025601, 'user:export', '导出', 603983082961243905, 'GET', '/user', '', 3, '2019-11-11 13:42:52', 3, '2019-11-11 13:42:52');
 INSERT INTO `wd_auth_resource` VALUES (643445641149680705, 'menu:add', '添加', 603976297063910529, 'POST', '/menu', '', 3, '2019-11-11 13:43:16', 3, '2019-11-11 13:43:16');
-INSERT INTO `wd_auth_resource` VALUES (643445674330819745, 'menu:uwdate', '修改', 603976297063910529, 'PUT', '/menu', '', 3, '2019-11-11 13:43:24', 3, '2019-11-11 13:43:24');
+INSERT INTO `wd_auth_resource` VALUES (643445674330819745, 'menu:update', '修改', 603976297063910529, 'PUT', '/menu', '', 3, '2019-11-11 13:43:24', 3, '2019-11-11 13:43:24');
 INSERT INTO `wd_auth_resource` VALUES (643445704177487105, 'menu:delete', '删除', 603976297063910529, 'DELETE', '/menu', '', 3, '2019-11-11 13:43:31', 3, '2019-11-11 13:43:31');
 INSERT INTO `wd_auth_resource` VALUES (643445747320098145, 'menu:view', '查看', 603976297063910529, 'GET', '/menu/tree', '', 3, '2019-11-11 13:43:41', 3, '2020-03-03 19:55:10');
 INSERT INTO `wd_auth_resource` VALUES (643445774687931841, 'menu:export', '导出', 603976297063910529, 'GET', '/menu', '', 3, '2019-11-11 13:43:48', 3, '2019-11-11 13:43:48');
 INSERT INTO `wd_auth_resource` VALUES (643445802106097185, 'menu:import', '导入', 603976297063910529, 'POST', '/menu', '', 3, '2019-11-11 13:43:54', 3, '2019-11-11 13:43:54');
 INSERT INTO `wd_auth_resource` VALUES (643448338154263521, 'role:add', '添加', 603981723864141121, 'POST', '/role', '', 3, '2019-11-11 13:53:59', 3, '2019-11-11 13:53:59');
-INSERT INTO `wd_auth_resource` VALUES (643448369779315777, 'role:uwdate', '修改', 603981723864141121, 'PUT', '/role', '', 3, '2019-11-11 13:54:06', 3, '2019-11-11 13:54:06');
+INSERT INTO `wd_auth_resource` VALUES (643448369779315777, 'role:update', '修改', 603981723864141121, 'PUT', '/role', '', 3, '2019-11-11 13:54:06', 3, '2019-11-11 13:54:06');
 INSERT INTO `wd_auth_resource` VALUES (643448507767723169, 'role:delete', '删除', 603981723864141121, 'DELETE', '/role', '', 3, '2019-11-11 13:54:39', 3, '2019-11-11 13:54:39');
 INSERT INTO `wd_auth_resource` VALUES (643448611161511169, 'role:view', '查看', 603981723864141121, 'GET', '/role/page', '', 3, '2019-11-11 13:55:04', 3, '2020-03-03 19:55:44');
 INSERT INTO `wd_auth_resource` VALUES (643448656451605857, 'role:export', '导出', 603981723864141121, 'GET', '/role', '', 3, '2019-11-11 13:55:15', 3, '2019-11-11 13:55:15');
@@ -127,7 +127,7 @@ INSERT INTO `wd_auth_resource` VALUES (645288214990422241, 'optLog:delete', '删
 INSERT INTO `wd_auth_resource` VALUES (645288283693121889, 'loginLog:delete', '删除', 645215230518909025, 'DELETE', '/loginLog', '', 3, '2019-11-16 15:45:16', 3, '2019-11-16 15:45:16');
 INSERT INTO `wd_auth_resource` VALUES (645288375300915649, 'loginLog:export', '导出', 645215230518909025, 'GET', '/loginLog', '', 3, '2019-11-16 15:45:38', 3, '2019-11-16 15:45:38');
 INSERT INTO `wd_auth_resource` VALUES (667033832750318369, 'file:add', '添加', 667033750256747169, 'POST', '/file', '', 3, '2020-01-15 15:54:19', 3, '2020-01-15 15:54:19');
-INSERT INTO `wd_auth_resource` VALUES (667033888949797761, 'file:uwdate', '修改', 667033750256747169, 'PUT', '/file', '', 3, '2020-01-15 15:54:32', 3, '2020-01-15 15:54:32');
+INSERT INTO `wd_auth_resource` VALUES (667033888949797761, 'file:update', '修改', 667033750256747169, 'PUT', '/file', '', 3, '2020-01-15 15:54:32', 3, '2020-01-15 15:54:32');
 INSERT INTO `wd_auth_resource` VALUES (667033951713362913, 'file:delete', '删除', 667033750256747169, 'DELETE', '/file', '', 3, '2020-01-15 15:54:47', 3, '2020-01-15 15:54:47');
 INSERT INTO `wd_auth_resource` VALUES (667034024379679809, 'file:view', '查看', 667033750256747169, 'GET', '/file', '', 3, '2020-01-15 15:55:05', 3, '2020-01-15 15:55:05');
 INSERT INTO `wd_auth_resource` VALUES (676763119808152449, 'receive:view', '查看', 676762509503365569, 'GET', '/receiveRecord/page', '', 3, '2020-02-11 12:15:02', 3, '2020-03-03 23:29:14');
@@ -148,8 +148,8 @@ CREATE TABLE `wd_auth_role`  (
   `readonly` bit(1) NULL DEFAULT b'0' COMMENT '是否内置角色',
   `create_user` bigint(20) NULL DEFAULT 0 COMMENT '创建人id',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
-  `uwdate_user` bigint(20) NULL DEFAULT 0 COMMENT '更新人id',
-  `uwdate_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `update_user` bigint(20) NULL DEFAULT 0 COMMENT '更新人id',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `UN_CODE`(`code`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色' ROW_FORMAT = Compact;
@@ -351,8 +351,8 @@ CREATE TABLE `wd_auth_user`  (
   `last_login_time` datetime NULL DEFAULT NULL COMMENT '最后登录时间',
   `create_user` bigint(20) NULL DEFAULT 0 COMMENT '创建人id',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
-  `uwdate_user` bigint(20) NULL DEFAULT 0 COMMENT '更新人id',
-  `uwdate_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `update_user` bigint(20) NULL DEFAULT 0 COMMENT '更新人id',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `UN_ACCOUNT`(`account`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户' ROW_FORMAT = Compact;
@@ -468,8 +468,8 @@ CREATE TABLE `wd_core_org`  (
   `describe_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '描述',
   `create_time` datetime NULL DEFAULT NULL,
   `create_user` bigint(20) NULL DEFAULT NULL,
-  `uwdate_time` datetime NULL DEFAULT NULL,
-  `uwdate_user` bigint(20) NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `update_user` bigint(20) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   FULLTEXT INDEX `FU_PATH`(`tree_path`)
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '组织' ROW_FORMAT = Compact;
@@ -504,8 +504,8 @@ CREATE TABLE `wd_core_station`  (
   `describe_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '描述',
   `create_time` datetime NULL DEFAULT NULL,
   `create_user` bigint(20) NULL DEFAULT NULL,
-  `uwdate_time` datetime NULL DEFAULT NULL,
-  `uwdate_user` bigint(20) NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `update_user` bigint(20) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '岗位' ROW_FORMAT = Compact;
 

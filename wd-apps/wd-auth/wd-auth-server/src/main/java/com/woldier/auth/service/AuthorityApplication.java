@@ -28,7 +28,6 @@ import java.net.UnknownHostException;
 
 public class  AuthorityApplication {
     public static void main(String[] args) throws UnknownHostException {
-
        // SpringApplication.run(AuthorityApplication.class, args);
         ConfigurableApplicationContext run = SpringApplication.run(AuthorityApplication.class, args);
         /**
@@ -39,7 +38,9 @@ public class  AuthorityApplication {
         String appName = environment.getProperty("spring.application.name");
         byte[] address = InetAddress.getLocalHost().getAddress();
 
+        log.info("==============================================================");
         log.info("应用{}启动成功,对于的swagger文档地址是http://{}:{}/doc.html",appName,address,port);
+        log.info("==============================================================");
 
     }
 
